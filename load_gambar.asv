@@ -14,15 +14,17 @@ for i = 1:total_kelas % perulangan untuk i = 1 hingga 6 (total kelas)
         GLCM = graycomatrix(gray, 'Offset', [0 1; -1 1; -1 0; -1 -1]); % membuat matriks co-occurence tingkat abu-abu dari gambar n.gif
         stats = graycoprops(GLCM, {'contrast', 'correlation', 'energy', 'homogeneity'}); % menghitung statistik GLCM untuk mendapatkan nilai kontras, korelasi, energi, dan homogenitas
         ind = j + ((i - 1) * total_images);
-        CON = mean(stats.Contrast); % menghitung rata-rata dari matriks kontras, kemudian disimpan ke dalam matriks CON indeks ke-n
-        CORR = mean(stats.Correlation); % menghitung rata-rata dari matriks korelasi, kemudian disimpan ke dalam matriks CORR indeks ke-n
-        C = kelas{i};
-        X{ind} = {CON CORR C};
+        CON(ind) = mean(stats.Contrast); % menghitung rata-rata dari matriks kontras, kemudian disimpan ke dalam matriks CON indeks ke-n
+        CORR(ind) = mean(stats.Correlation); % menghitung rata-rata dari matriks korelasi, kemudian disimpan ke dalam matriks CORR indeks ke-n
+        C{ind} = kelas{i};
+        %X{ind} = {CON, CORR, C}; % membuat matriks X, isi baris pertama dengan matriks CON dan baris kedua dengan matriks CORR, kemudian matriks X di transpose
         subplot(3,5,j), imshow(RGB); % menampilkan gambar j.jpg pada subplot ke-j
     end
 end
 
-writetable(cell2table(X'), 'fitur.csv', 'WriteVariableNames', 0);
+X = table(
+
+%xlswrite('X.xls', X');
 
 function RGB = segmentasi(I, kelas)
     HSV = rgb2hsv(I);
