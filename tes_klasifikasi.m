@@ -19,7 +19,7 @@ function klasifikasi(namafile, bestfeatures)
         fitur_terbaik = readmatrix('fiturterbaik.csv'); % baca matrix dari file fiturterbaik.csv
         X = cell2mat(csv(2:end, fitur_terbaik)); % konversi cell dari csv ke matrix yang berisi fitur-fitur terbaik
     else
-        X = cell2mat(fitur_warna); % konversi cell dari csv ke matrix yang berisi fitur yang ingin digunakan
+        X = cell2mat(fitur_bentukukuran); % konversi cell dari csv ke matrix yang berisi fitur yang ingin digunakan
     end
     y = csv(2:end, end)'; % mengambil nama kelas dari csv
     y = categorical(y); % membuat categorical untuk nama kelas
