@@ -1,21 +1,21 @@
 clc; clear; close all;
 
-gunakan_fitur_terbaik = 1;
+gunakan_seleksi_fitur = 1;
 
-if gunakan_fitur_terbaik && ~isfile('fiturterbaik.csv') % jika menggunakan fitur terbaik, namun file fiturterbaik.csv tidak ada
+if gunakan_seleksi_fitur && ~isfile('fiturterbaik.csv') % jika menggunakan fitur terbaik, namun file fiturterbaik.csv tidak ada
     feature_selection; % jalankan script feature_selection
 elseif ~isfile('fitur.csv') % jika file fitur.csv tidak ada
     segmentasi_ekstraksi; % jalankan script segmentasi_ekstraksi
 end
 
-klasifikasi('fitur.csv', gunakan_fitur_terbaik); % lakukan klasifikasi terhadap data sampel
+klasifikasi('fitur.csv', gunakan_seleksi_fitur); % lakukan klasifikasi terhadap data sampel
 
-function klasifikasi(namafile, bestfeatures)
+function klasifikasi(namafile, usefeatureselection)
     csv = readcell(namafile); % baca cell dari file
     fitur_warna = csv(2:end, 1:4); % kolom untuk fitur warna
     fitur_tekstur = csv(2:end, 5:8); % kolom untuk fitur warna
     fitur_bentukukuran = csv(2:end, 9:12); % kolom untuk fitur warna
-    if bestfeatures % jika menggunakan fitur terbaik
+    if usefeatureselection % jika menggunakan fitur terbaik
         fitur_terbaik = readmatrix('fiturterbaik.csv'); % baca matrix dari file fiturterbaik.csv
         X = cell2mat(csv(2:end, fitur_terbaik)); % konversi cell dari csv ke matrix yang berisi fitur-fitur terbaik
     else
