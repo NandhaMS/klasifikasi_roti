@@ -20,7 +20,17 @@ for i = 1:total_kelas % perulangan untuk i = 1 hingga 6 (total kelas)
     end
 end
 
-writetable(cell2table(X'), 'fitur.csv', 'WriteVariableNames', 0);
+featurename = {
+    'meanHue' 'meanSat' 'meanValue' 'meanStdDev' ...
+    'Contrast' 'Correlation' 'Energy' 'Homogeneity' ...
+    'Perimeter' 'Area' 'Eccentricity' 'Metric' 'Kelas'
+};
+featuretable = cell2table(X');
+writetable(featuretable, 'fitur.csv', 'WriteVariableNames', false);
+featuretable = cell2table(readcell('fitur.csv'));
+featuretable.Properties.VariableNames = featurename;
+writetable(featuretable, 'fitur.csv');
+fclose('all');
 
 function [biner, RGB] = segmentasi(I) % fungsi untuk segmentasi citra makanan
     hsv = rgb2hsv(I); % konversi gambar menjadi ruang warna hsv
