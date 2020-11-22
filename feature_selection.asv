@@ -27,7 +27,7 @@ xtickangle(45); % atur kemiringan tulisan label menjadi 45 derajat
 keseluruhan_fitur = csv(1, 1:end-1); % mengambil nama keseluruhan fitur dari dataset csv
 % mengambil index kolom fitur terbaik
 for i = 1:5 % perulangan dari i = 1 hingga 5
-    id(i) = find(strcmp(keseluruhan_fitur, featurename(idx(i)))); % simpan index kolom ke dalam matrix id ke-i
+    id(i) = find(strcmp(keseluruhan_fitur, featurename(idx(i)))); % simpan index kolom 
 end
 fitur_terbaik = id; % mengambil fitur terbaik
 writematrix(fitur_terbaik, 'fiturterbaik.csv'); % menyimpan 5 fitur terbaik ke dalam file csv
