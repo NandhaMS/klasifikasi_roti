@@ -1,4 +1,4 @@
-function s = segmentasi_ekstraksi(display_segmentation, fig)
+function s = segmentasi_ekstraksi(display_segmentation)
     image_folder = 'training_img'; % nama folder dataset gambar
     total_images = 15; % total gambar per kelas
     kelas = {'Burger', 'Croissants', 'Muffin', 'Pizza', 'RotiSobek', 'RotiTawar', 'Donut'}; % kelas klasifikasi jenis roti
@@ -8,10 +8,10 @@ function s = segmentasi_ekstraksi(display_segmentation, fig)
         'Contrast' 'Correlation' 'Energy' 'Homogeneity' ...
         'Perimeter' 'Area' 'Eccentricity' 'Metric' 'Kelas', 'Gambar'
     };
-    d = loading("Sedang melakukan segmentasi dan ekstraksi", fig);
     for i = 1:total_kelas % perulangan untuk i = 1 hingga 6 (total kelas)
         for j = 1:total_images % perulangan untuk j = 1 hingga 15 (total gambar)
             full_name = fullfile(strcat(image_folder, '/', kelas{i}), strcat(num2str(j),'.jpg')); % mengambil file j.jpg dari folder kelas index ke-i
+           
             Img = imread(full_name); % baca gambar j.jpg yang telah diambil
             [bw, RGB] = segmentasi(Img); % segmentasi Img dengan fungsi segmentasi untuk mendapatkan citra biner dan rgb
             [meanHue, meanSat, meanValue, meanStdDev] = ekstraksi_hsv(RGB); % ekstraksi fitur ruang warna hsv
@@ -19,7 +19,7 @@ function s = segmentasi_ekstraksi(display_segmentation, fig)
             [P, A, Ec, M] = ekstraksi_bentuk(bw); % ekstraksi fitur bentuk dan ukuran
             C = kelas{i}; % nama kelas
             ind = j + ((i - 1) * total_images); % menghitung index untuk dimasukkan ke cell X
-            X{ind} = {meanHue meanSat meanValue meanStdDev CON CORR E H P A Ec M C full_name}; % melakukan input fitur ruang warna hsv, tekstur, bentuk, ukuran, dan nama kelas dari citra makanan
+            X{ind} = {meanHue meanSat meanValue meanStdDev CON CORR E H P A Ec M C path_gambar}; % melakukan input fitur ruang warna hsv, tekstur, bentuk, ukuran, dan nama kelas dari citra makanan
             if (display_segmentation) % jika hasil segmentasi ditampilkan (bernilai 1)
                 figure(i) % membuat figure untuk menampilkan gambar setiap kelas
                 subplot(3,5,j), imshow(RGB); % menampilkan gambar j.jpg pada subplot ke-j
@@ -32,7 +32,6 @@ function s = segmentasi_ekstraksi(display_segmentation, fig)
     featuretable.Properties.VariableNames = featurename; % atur header untuk variabel setiap fitur pada setiap kolom tabel
     writetable(featuretable, 'fitur.csv'); % tulis isi tabel fitur dan kelas ke dalam 'fitur.csv'
     fclose('all'); % tutup semua file yang dibuka oleh matlab
-    close(d);
     s = 1; % return 1 sebagai penanda fungsi telah dijalankan
     
     function [biner, RGB] = segmentasi(I) % fungsi untuk segmentasi citra makanan
