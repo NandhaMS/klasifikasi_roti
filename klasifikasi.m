@@ -21,13 +21,13 @@ function s = klasifikasi(fiturpilihan, kombinasifitur, acaksampel, displaybar, f
     y = csv(2:end, end-1)'; % mengambil nama kelas dari csv
     y = categorical(y); % membuat categorical untuk nama kelas
     if (acaksampel)
-        burger = randperm(15, 5) + 1; % ambil 5 sampel acak dari burger
-        croissant = randperm(15, 5) + 16; % ambil 5 sampel acak dari croissant
-        muffin = randperm(15, 5) + 31; % ambil 5 sampel acak dari muffin
-        pizza = randperm(15, 5) + 46; % ambil 5 sampel acak dari pizza
-        rotisobek = randperm(15, 5) + 61; % ambil 5 sampel acak dari rotisobek
-        rotitawar = randperm(15, 5) + 76; % ambil 5 sampel acak dari rotitawar
-        donat = randperm(15, 5) + 91; % ambil 5 sampel acak dari donat
+        burger = randperm(15, 5); % ambil 5 sampel acak dari burger
+        croissant = randperm(15, 5) + 15; % ambil 5 sampel acak dari croissant
+        muffin = randperm(15, 5) + 30; % ambil 5 sampel acak dari muffin
+        pizza = randperm(15, 5) + 45; % ambil 5 sampel acak dari pizza
+        rotisobek = randperm(15, 5) + 60; % ambil 5 sampel acak dari rotisobek
+        rotitawar = randperm(15, 5) + 75; % ambil 5 sampel acak dari rotitawar
+        donat = randperm(15, 5) + 90; % ambil 5 sampel acak dari donat
         sample = [burger croissant muffin pizza rotisobek rotitawar donat]; % gabung semua sampel acak menjadi satu
     else
         sample = [6:10 26:30 41:45 56:60 71:75 86:90 101:105];
